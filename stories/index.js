@@ -15,15 +15,15 @@ const Overlay = ({ zIndex, isHidden }) => {
         left: 0,
         width: '100vw',
         height: '100vh',
-        backgroundColor: '#000',
-        opacity: '0.8',
+        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        opacity: '0.25',
         zIndex,
       }}
     />
   );
 }
 
-const Modal = ({ zIndex, isHidden, show, hide, text }) => {
+const Modal = ({ zIndex, isHidden, show, hide, text, top, left }) => {
   if (isHidden) {
     return null
   }
@@ -32,12 +32,13 @@ const Modal = ({ zIndex, isHidden, show, hide, text }) => {
     <div
       style={{
         position: 'fixed',
-        top: '50%',
-        left: '50%',
+        top,
+        left,
         width: '50vw',
         height: '50vh',
         transform: 'translate(-50%, -50%)',
         backgroundColor: '#FFF',
+        boxShadow: '0 0 2px 0 rgba(0, 0, 0, 0.4)',
         zIndex,
       }}
     >
@@ -91,11 +92,6 @@ storiesOf('LayerStacked', module)
             <button onClick={ () => this.show('A') }>open modal A</button>
             <button onClick={ () => this.show('B') }>open modal B</button>
             <button onClick={ () => this.show('C') }>open modal C</button>
-            <Overlay
-              isHidden={
-                this.state.isModalAHidden && this.state.isModalBHidden && this.state.isModalCHidden
-              }
-            />
             <LayerStacked
               layers={
                 [
@@ -108,6 +104,8 @@ storiesOf('LayerStacked', module)
                         show={ this.show }
                         text="A"
                         zIndex={ zIndex }
+                        top={ '50%' }
+                        left={ '50%' }
                       />
                     )
                   },
@@ -120,6 +118,8 @@ storiesOf('LayerStacked', module)
                         show={ this.show }
                         text="B"
                         zIndex={ zIndex }
+                        top={ '60%' }
+                        left={ '60%' }
                       />
                     )
                   },
@@ -132,6 +132,8 @@ storiesOf('LayerStacked', module)
                         show={ this.show }
                         text="C"
                         zIndex={ zIndex }
+                        top={ '70%' }
+                        left={ '70%' }
                       />
                     )
                   }
@@ -140,11 +142,23 @@ storiesOf('LayerStacked', module)
             >
               {
                 ({ layers, ...props }) => {
-                  return layers.map(({ isHidden, render }, index) => {
-                    return (
-                      <div key={ index }>{ render(isHidden, props.getStackOrder(index)) }</div>
-                    )
-                  })
+                  console.log(props.stackedSize)
+                  return (
+                    <div>
+                      <Overlay
+                        isHidden={ !props.stackedList.length }
+                        zIndex={ props.stackedList.length - 1 }
+                      />
+                      {
+                        layers.map(({ isHidden, render }, index) => {
+                          console.log(props.getStackOrder(index))
+                          return (
+                            <div key={ index }>{ render(isHidden, props.getStackOrder(index)) }</div>
+                          )
+                        })
+                      }
+                    </div>
+                  )
                 }
               }
             </LayerStacked>

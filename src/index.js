@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 
 const isSameArray = (a, b) => {
   if (a.length !== b.length) {
-    return false;
+    return false
   }
 
   return a.every((val, index) => val === b[index])
 }
 
 const getStackedSize = (layers) => {
-  return layers.filter(item => item).length;
+  return layers.filter(item => item).length
 }
 
 const getVisibilityList = (layers) => {
@@ -18,13 +18,13 @@ const getVisibilityList = (layers) => {
 }
 
 const getDiffIndex = (a, b) => {
-  let diffIndex = -1;
+  let diffIndex = -1
 
   a.forEach((item, index) => {
     if (item !== b[index]) {
-      diffIndex = index;
+      diffIndex = index
     }
-  });
+  })
 
   return diffIndex
 }
@@ -61,9 +61,8 @@ class LayerStacked extends React.Component {
   }
 
   getStackOrder = (layerIndex) => {
-    console.log(layerIndex, this.state.stackedList)
     if (!this.state.stackedList.includes(layerIndex)) {
-      return 0;
+      return 0
     }
     return this.state.stackedList.findIndex(item => item === layerIndex)
   }
@@ -87,7 +86,6 @@ class LayerStacked extends React.Component {
       stackedList.pop(diffIndex)
     }
 
-    console.log(stackedList)
     this.setState({
       stackedSize: getStackedSize(next),
       diffIndex,
