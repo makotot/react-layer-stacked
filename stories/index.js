@@ -142,7 +142,6 @@ storiesOf('LayerStacked', module)
             >
               {
                 ({ layers, ...props }) => {
-                  console.log(props.stackedSize)
                   return (
                     <div>
                       <Overlay
@@ -150,12 +149,9 @@ storiesOf('LayerStacked', module)
                         zIndex={ props.stackedList.length - 1 }
                       />
                       {
-                        layers.map(({ isHidden, render }, index) => {
-                          console.log(props.getStackOrder(index))
-                          return (
-                            <div key={ index }>{ render(isHidden, props.getStackOrder(index)) }</div>
-                          )
-                        })
+                        layers.map(({ isHidden, render }, index) => (
+                          <div key={ index }>{ render(isHidden, props.getStackOrder(index)) }</div>
+                        ))
                       }
                     </div>
                   )
