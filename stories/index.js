@@ -2,6 +2,17 @@ import React from 'react'
 import { storiesOf } from '@storybook/react'
 import LayerStacked from '../src'
 
+const Button = (props) => (
+  <button { ...props }
+    style={{
+      padding: '1rem',
+      backgroundColor: '#4671f1',
+      border: '1px solid #FFF',
+      color: '#FFF',
+    }}
+  />
+)
+
 const Overlay = ({ zIndex, isHidden }) => {
   if (isHidden) {
     return null
@@ -37,6 +48,7 @@ const Modal = ({ zIndex, isHidden, show, hide, text, top, left }) => {
         width: '50vw',
         height: '50vh',
         transform: 'translate(-50%, -50%)',
+        padding: '1rem',
         backgroundColor: '#FFF',
         boxShadow: '0 0 2px 0 rgba(0, 0, 0, 0.4)',
         zIndex,
@@ -44,21 +56,21 @@ const Modal = ({ zIndex, isHidden, show, hide, text, top, left }) => {
     >
       <div>
         <h1>{ text }</h1>
-        <button onClick={ hide }>close</button>
+        <Button onClick={ hide }>close</Button>
         {
           text !== 'A'
           &&
-          <button onClick={ () => show('A') }>show A</button>
+          <Button onClick={ () => show('A') }>show A</Button>
         }
         {
           text !== 'B'
           &&
-          <button onClick={ () => show('B') }>show B</button>
+          <Button onClick={ () => show('B') }>show B</Button>
         }
         {
           text !== 'C'
           &&
-          <button onClick={ () => show('C') }>show C</button>
+          <Button onClick={ () => show('C') }>show C</Button>
         }
       </div>
     </div>
@@ -89,9 +101,9 @@ storiesOf('LayerStacked', module)
       render() {
         return (
           <div>
-            <button onClick={ () => this.show('A') }>open modal A</button>
-            <button onClick={ () => this.show('B') }>open modal B</button>
-            <button onClick={ () => this.show('C') }>open modal C</button>
+            <Button onClick={ () => this.show('A') }>open modal A</Button>
+            <Button onClick={ () => this.show('B') }>open modal B</Button>
+            <Button onClick={ () => this.show('C') }>open modal C</Button>
             <LayerStacked
               layers={
                 [
