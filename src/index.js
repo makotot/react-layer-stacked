@@ -9,13 +9,9 @@ const isSameArray = (a, b) => {
   return a.every((val, index) => val === b[index])
 }
 
-const getStackedSize = (layers) => {
-  return layers.filter(item => item).length
-}
+const getStackedSize = layers => layers.filter(item => item).length
 
-const getVisibilityList = (layers) => {
-  return layers.map(layer => layer.isHidden)
-}
+const getVisibilityList = layers => layers.map(layer => layer.isHidden)
 
 const getDiffIndex = (a, b) => {
   let diffIndex = -1
@@ -96,7 +92,7 @@ class LayerStacked extends React.Component {
   render() {
     const render = this.props.children || this.props.render
     const {
-      stackedSize, diffIndex, stackedList
+      stackedSize, diffIndex, stackedList,
     } = this.state
 
     return render({
