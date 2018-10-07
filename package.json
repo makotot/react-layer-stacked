@@ -1,15 +1,24 @@
 {
   "name": "react-layer-stacked",
   "version": "0.1.0",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
   "author": "makotot",
   "license": "MIT",
   "scripts": {
     "storybook": "start-storybook -p 9001 -c .storybook",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "build": "npm run build:commonjs && npm run build:es",
+    "build:commonjs": "cross-env NODE_ENV=commonjs rollup -c",
+    "build:es": "cross-env NODE_ENV=es rollup -c"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.0",
+    "@babel/plugin-external-helpers": "^7.0.0",
     "@babel/plugin-proposal-class-properties": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
@@ -23,6 +32,14 @@
     "eslint-plugin-react": "^7.11.1",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
-    "react-dom": "^16.5.2"
+    "react-dom": "^16.5.2",
+    "rimraf": "^2.6.2",
+    "rollup": "^0.66.2",
+    "rollup-plugin-babel": "^4.0.3",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-node-resolve": "^3.4.0",
+    "rollup-plugin-replace": "^2.0.0",
+    "rollup-plugin-uglify": "^6.0.0",
+    "rollup-watch": "^4.3.1"
   }
 }

@@ -12,7 +12,7 @@
     "commonjs": {
       "presets": [
         [
-          "env", {
+          "@babel/preset-env", {
             "useBuiltIns": false
           }
         ]
@@ -21,7 +21,7 @@
     "es": {
       "presets": [
         [
-          "env", {
+          "@babel/preset-env", {
             "useBuiltIns": false,
             "modules": false
           }
