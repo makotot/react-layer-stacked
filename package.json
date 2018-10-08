@@ -1,20 +1,24 @@
 {
   "name": "react-layer-stacked",
   "version": "0.1.0",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "description": "A react component to manage layer order.",
+  "main": "lib/index.js",
+  "module": "lib/index.es.js",
   "files": [
-    "dist"
+    "lib"
   ],
   "author": "makotot",
   "license": "MIT",
   "scripts": {
     "storybook": "start-storybook -p 9001 -c .storybook",
+    "build-storybook": "build-storybook -o ./dist",
+    "gh-pages": "npm run build-storybook && gh-pages --dist ./dist",
     "lint": "eslint src",
     "build": "npm run build:commonjs && npm run build:es",
     "build:commonjs": "cross-env NODE_ENV=commonjs rollup -c",
     "build:es": "cross-env NODE_ENV=es rollup -c",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "postpublish": "npm run gh-pages"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",
