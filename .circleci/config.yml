@@ -1,10 +1,13 @@
 version: 2
 
+defaults: &defaults
+  working_directory: ~/react-layer-stacked
+  docker:
+    - image: circleci/node:10-stretch
+
 jobs:
-  build:
-    docker:
-      - image: circleci/node:10-stretch
-    working_directory: ~/react-layer-stacked
+  test:
+    <<: *defaults
     steps:
       - checkout
       - restore_cache:
@@ -20,3 +23,25 @@ jobs:
           paths:
             - ~/.cache/yarn
           key: yarn-packages-{{ checksum "yarn.lock" }}
+  deploy:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/react-layer-stacked
+      - run:
+          name: Auth npm
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/react-layer-stacked/.npmrc
+      - run:
+          name: Publish
+          command: npm publish
+
+workflow:
+  version: 2
+  test-deploy:
+    jobs:
+      - deploy:
+        requires:
+          - test
+        filters:
+          tags:
+            only: /^v.*/
