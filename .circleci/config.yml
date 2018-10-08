@@ -1,0 +1,25 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/react-layer-stacked
+  docker:
+    - image: circleci/node:10-stretch
+
+jobs:
+  test:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+        keys:
+          - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+        name: Install
+        command: yarn install
+      - run:
+        name: Lint
+        command: yarn run lint
+      - save_cache:
+        paths:
+          - ~/.cache/yarn
+        key: yarn-packages-{{ checksum "yarn.lock" }}
