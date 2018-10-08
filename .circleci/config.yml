@@ -1,13 +1,10 @@
 version: 2
 
-defaults: &defaults
-  working_directory: ~/react-layer-stacked
-  docker:
-    - image: circleci/node:10-stretch
-
 jobs:
-  test:
-    <<: *defaults
+  build:
+    docker:
+      - image: circleci/node:10-stretch
+    working_directory: ~/react-layer-stacked
     steps:
       - checkout
       - restore_cache:
