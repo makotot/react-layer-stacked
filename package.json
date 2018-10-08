@@ -48,8 +48,7 @@
     "react-dom": ">=16"
   },
   "engines": {
-    "node": "10",
-    "yarn": "1.10"
+    "node": "10"
   },
   "keywords": [
     "react",
